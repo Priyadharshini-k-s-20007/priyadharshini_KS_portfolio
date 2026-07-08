@@ -232,81 +232,46 @@ function HeroPortrait() {
         background: 'var(--bg-card)',
         border: '1px solid var(--border)',
         boxShadow: '0 20px 60px rgba(90,55,30,0.08)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
       }}>
         {/* Warm decorative top strip */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: 'linear-gradient(90deg, var(--accent), var(--accent-hover))' }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 4, background: 'linear-gradient(90deg, var(--accent), var(--accent-hover))', zIndex: 2 }} />
 
-        {/* Avatar illustration */}
-        <svg viewBox="0 0 200 240" width="200" height="240" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="skinG" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F5C07A" />
-              <stop offset="100%" stopColor="#D4956A" />
-            </linearGradient>
-            <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#F3E9DD" />
-              <stop offset="100%" stopColor="#E8D5BF" />
-            </linearGradient>
-            <linearGradient id="bodyG" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#8A5A2D" />
-              <stop offset="100%" stopColor="#A86C38" />
-            </linearGradient>
-          </defs>
-          {/* Background */}
-          <rect width="200" height="240" fill="url(#bgG)" rx="4" />
-          {/* Subtle dot pattern */}
-          {[0, 1, 2, 3, 4, 5].map(r => [0, 1, 2, 3, 4, 5].map(c => (
-            <circle key={`${r}-${c}`} cx={20 + c * 32} cy={20 + r * 40} r="1.5" fill="#D9C6B4" opacity="0.6" />
-          )))}
-          {/* Body */}
-          <ellipse cx="100" cy="260" rx="65" ry="50" fill="url(#bodyG)" />
-          {/* Neck */}
-          <rect x="87" y="168" width="26" height="22" rx="6" fill="#D4956A" />
-          {/* Head */}
-          <ellipse cx="100" cy="140" rx="42" ry="46" fill="url(#skinG)" />
-          {/* Hair */}
-          <path d="M58 128 Q56 90 100 80 Q144 90 142 128 Q142 110 100 108 Q58 110 58 128Z" fill="#2F221B" />
-          <path d="M59 140 Q54 160 60 180 Q64 175 66 162 Q64 148 60 136Z" fill="#2F221B" />
-          <path d="M141 140 Q146 160 140 180 Q136 175 134 162 Q136 148 140 136Z" fill="#2F221B" />
-          {/* Eyes */}
-          <ellipse cx="88" cy="138" rx="6" ry="7" fill="#2F221B" />
-          <ellipse cx="112" cy="138" rx="6" ry="7" fill="#2F221B" />
-          <circle cx="90" cy="136" r="2" fill="white" opacity="0.9" />
-          <circle cx="114" cy="136" r="2" fill="white" opacity="0.9" />
-          {/* Eyebrows */}
-          <path d="M81 128 Q88 124 95 128" stroke="#2F221B" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-          <path d="M105 128 Q112 124 119 128" stroke="#2F221B" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-          {/* Nose */}
-          <path d="M100 143 Q96 153 100 156 Q104 153 100 143Z" fill="#C27A06" opacity="0.4" />
-          {/* Smile */}
-          <path d="M88 162 Q100 173 112 162" stroke="#8A5A2D" strokeWidth="2" strokeLinecap="round" fill="none" />
-          {/* Bindi */}
-          <circle cx="100" cy="120" r="2.5" fill="#8A5A2D" />
-          {/* Earrings */}
-          <circle cx="58" cy="150" r="4" fill="#A86C38" stroke="#8A5A2D" strokeWidth="1" />
-          <circle cx="142" cy="150" r="4" fill="#A86C38" stroke="#8A5A2D" strokeWidth="1" />
-        </svg>
+        {/* Profile photo — black & white */}
+        <img
+          src="/profile.jpg"
+          alt="Priyadharshini K S"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: '50% 28%',
+            display: 'block',
+            filter: 'grayscale(100%)',
+          }}
+        />
 
-        {/* Name tag at bottom */}
+        {/* Bottom name overlay */}
         <div style={{
-          marginTop: 20,
-          textAlign: 'center',
-          fontFamily: 'var(--font-heading)',
-          color: 'var(--text-primary)',
-          fontSize: 16,
-          fontWeight: 600,
-          letterSpacing: '0.02em'
+          position: 'absolute',
+          bottom: 0, left: 0, right: 0,
+          padding: '32px 24px 24px',
+          background: 'linear-gradient(to top, rgba(247,241,232,0.97) 60%, transparent)',
+          zIndex: 2,
         }}>
-          Priyadharshini K S
-        </div>
-        <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 4, fontWeight: 500 }}>
-          AI & Data Science · SECE
+          <div style={{
+            fontFamily: 'var(--font-heading)',
+            color: 'var(--text-primary)',
+            fontSize: 16,
+            fontWeight: 600,
+            letterSpacing: '0.02em',
+          }}>
+            Priyadharshini K S
+          </div>
+          <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 4, fontWeight: 500 }}>
+            AI &amp; Data Science · SECE
+          </div>
         </div>
 
         {/* Corner accent */}
@@ -314,7 +279,8 @@ function HeroPortrait() {
           position: 'absolute', bottom: 28, right: 28,
           width: 32, height: 32, borderRadius: 8,
           background: 'linear-gradient(135deg, var(--accent), var(--accent-hover))',
-          opacity: 0.15
+          opacity: 0.15,
+          zIndex: 3,
         }} />
       </div>
     </motion.div>
