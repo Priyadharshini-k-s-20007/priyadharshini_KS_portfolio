@@ -48,36 +48,36 @@ const PROJECTS = [
     type: 'Chrome Extension · AI Privacy',
     desc: 'An AI-powered Chrome extension that safeguards user privacy on AI platforms. Automatically detects sensitive data (API keys, emails, phone numbers, account numbers, names) and replaces them with secure placeholders before prompts are sent — then restores originals in AI responses seamlessly.',
     tech: ['Python', 'JavaScript', 'React', 'Node.js', 'Express.js', 'MongoDB', 'Chrome Extension API', 'JWT', 'Docker', 'GitHub Actions', 'MLOps'],
-    github: 'https://github.com/Priyadharshini-k-s-20007',
+    github: 'https://github.com/SECE-24-28/aegismodelguard-ta-mlops-project.git',
     demo: '#',
-    emoji: '🛡️',
+    images: ['/projects/aegis/aegis1.png', '/projects/aegis/aegis2.png', '/projects/aegis/aegis3.png'],
   },
   {
     title: 'AI Aircraft Health Monitoring',
     type: 'ML / Full Stack',
     desc: 'An AI-powered predictive maintenance platform that estimates aircraft engine Remaining Useful Life (RUL) using LSTM deep learning. Analyzes engine sensor data and presents maintenance insights through an interactive dashboard, enabling proactive planning and reducing operational risks.',
     tech: ['Python', 'TensorFlow', 'FastAPI', 'React', 'Tailwind CSS', 'NumPy', 'Pandas', 'Matplotlib'],
-    github: 'https://github.com/Priyadharshini-k-s-20007',
+    github: 'https://github.com/Priyadharshini-k-s-20007/AI_Aircraft_Predictive_Maintenance.git',
     demo: '#',
-    emoji: '✈️',
+    images: ['/projects/aircraft/aircraft1.png', '/projects/aircraft/aircraft2.png', '/projects/aircraft/aircraft3.png'],
   },
   {
     title: 'SportsEase',
     type: 'Hackathon Winner · Full Stack',
     desc: 'A hackathon-winning athlete performance management platform that automates sports analytics and sponsorship indexing. Features secure media uploads, AI-assisted performance evaluation, athlete profiling, and dynamic updates to help coaches identify promising talent efficiently.',
     tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'Cloudinary', 'JWT', 'REST API'],
-    github: 'https://github.com/Priyadharshini-k-s-20007',
+    github: 'https://github.com/Priyadharshini-k-s-20007/SportsEase.git',
     demo: '#',
-    emoji: '🏆',
+    images: ['/projects/sportsease/sports1.png', '/projects/sportsease/sports2.png', '/projects/sportsease/sports3.png'],
   },
   {
     title: 'QuizCortex – Smart Quiz Book',
     type: 'Full Stack · EdTech',
     desc: 'A modern full-stack quiz management platform that lets users create, manage, and attempt quizzes through an intuitive interface. Features organized question management, secure authentication, responsive design, and real-time score tracking for an engaging learning experience.',
     tech: ['React', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'Tailwind CSS', 'REST API'],
-    github: 'https://github.com/Priyadharshini-k-s-20007',
+    github: 'https://github.com/Priyadharshini-k-s-20007/MERN_FINAL_PROJECT_QUIZZ_APP.git',
     demo: '#',
-    emoji: '🧠',
+    images: ['/projects/quizcortex/quiz1.png', '/projects/quizcortex/quiz2.png', '/projects/quizcortex/quiz3.png'],
   },
   {
     title: 'Temple Management System',
@@ -86,7 +86,7 @@ const PROJECTS = [
     tech: ['Java', 'Spring Boot', 'MySQL', 'HTML', 'CSS', 'JavaScript', 'Bootstrap', 'JDBC'],
     github: 'https://github.com/Priyadharshini-k-s-20007',
     demo: '#',
-    emoji: '🛕',
+    images: ['/projects/temple/temple1.png', '/projects/temple/temple2.png', '/projects/temple/temple3.png'],
   },
 ]
 
@@ -171,6 +171,156 @@ function useScroll2() {
     return () => window.removeEventListener('scroll', fn)
   }, [])
   return scrolled
+}
+
+/* ─── PROJECT CAROUSEL ─── */
+function ProjectCarousel({ images }) {
+  const [current, setCurrent] = useState(0)
+  const [hovered, setHovered] = useState(false)
+  const timerRef = useRef(null)
+  const total = images.length
+
+  const goTo = (idx) => {
+    setCurrent(((idx % total) + total) % total)
+  }
+
+  useEffect(() => {
+    if (hovered) return
+    timerRef.current = setInterval(() => {
+      setCurrent(c => (c + 1) % total)
+    }, 3500)
+    return () => clearInterval(timerRef.current)
+  }, [hovered, total])
+
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: 250,
+        background: '#F8F5F0',
+        overflow: 'hidden',
+        borderBottom: '1px solid var(--border)',
+        flexShrink: 0,
+      }}
+    >
+      {/* Slides */}
+      <div
+        style={{
+          display: 'flex',
+          width: `${total * 100}%`,
+          height: '100%',
+          transform: `translateX(-${(current / total) * 100}%)`,
+          transition: 'transform 500ms ease',
+        }}
+      >
+        {images.map((src, i) => (
+          <div
+            key={i}
+            style={{
+              width: `${100 / total}%`,
+              height: '100%',
+              flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: '#F8F5F0',
+            }}
+          >
+            <img
+              src={src}
+              alt={`Screenshot ${i + 1}`}
+              loading="lazy"
+              style={{
+                maxWidth: '100%',
+                maxHeight: '100%',
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                objectPosition: 'center',
+                display: 'block',
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Left Arrow */}
+      <button
+        onClick={() => goTo(current - 1)}
+        aria-label="Previous"
+        style={{
+          position: 'absolute', left: 10, top: '50%',
+          transform: 'translateY(-50%)',
+          background: 'rgba(247,241,232,0.88)',
+          border: '1px solid var(--border)',
+          borderRadius: '50%',
+          width: 32, height: 32,
+          cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          opacity: hovered ? 1 : 0,
+          transition: 'opacity 0.25s ease',
+          zIndex: 2,
+          color: 'var(--text-primary)',
+          fontSize: 16, lineHeight: 1,
+        }}
+      >
+        ‹
+      </button>
+
+      {/* Right Arrow */}
+      <button
+        onClick={() => goTo(current + 1)}
+        aria-label="Next"
+        style={{
+          position: 'absolute', right: 10, top: '50%',
+          transform: 'translateY(-50%)',
+          background: 'rgba(247,241,232,0.88)',
+          border: '1px solid var(--border)',
+          borderRadius: '50%',
+          width: 32, height: 32,
+          cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          opacity: hovered ? 1 : 0,
+          transition: 'opacity 0.25s ease',
+          zIndex: 2,
+          color: 'var(--text-primary)',
+          fontSize: 16, lineHeight: 1,
+        }}
+      >
+        ›
+      </button>
+
+      {/* Dots */}
+      <div
+        style={{
+          position: 'absolute', bottom: 8, left: 0, right: 0,
+          display: 'flex', justifyContent: 'center', gap: 6,
+          zIndex: 2,
+        }}
+      >
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            style={{
+              width: i === current ? 18 : 7,
+              height: 7,
+              borderRadius: 4,
+              border: 'none',
+              background: i === current ? 'var(--accent)' : 'rgba(138,90,45,0.25)',
+              cursor: 'pointer',
+              padding: 0,
+              transition: 'all 0.3s ease',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
 
 /* ─── SECTION HEADER ─── */
@@ -419,19 +569,16 @@ function ProjectCard({ project, index }) {
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1.0] }}
       viewport={{ once: true }}
     >
-      {/* Project banner */}
-      <div style={{
-        height: 160, background: 'var(--bg-2)', display: 'flex', alignItems: 'center',
-        justifyContent: 'center', fontSize: 64, borderBottom: '1px solid var(--border)',
-        position: 'relative'
-      }}>
-        {project.emoji}
+      {/* Project image carousel */}
+      <div style={{ position: 'relative', flexShrink: 0 }}>
+        <ProjectCarousel images={project.images} />
         {/* type badge */}
         <span style={{
-          position: 'absolute', top: 16, right: 16, fontSize: 11, fontWeight: 600,
+          position: 'absolute', top: 12, right: 12, fontSize: 11, fontWeight: 600,
           letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 12px',
-          background: 'var(--bg-card)', border: '1px solid var(--border)',
-          borderRadius: 100, color: 'var(--text-secondary)'
+          background: 'rgba(247,241,232,0.92)', border: '1px solid var(--border)',
+          borderRadius: 100, color: 'var(--text-secondary)', zIndex: 3,
+          backdropFilter: 'blur(4px)',
         }}>{project.type}</span>
       </div>
       {/* Content */}
